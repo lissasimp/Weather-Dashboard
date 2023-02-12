@@ -1,6 +1,7 @@
 // This function handles events where a movie button is clicked
 $("#search-button").on("click", function (event) {
   event.preventDefault();
+  saveCities();
 
 
   // This line grabs the input from the textbox
@@ -14,28 +15,33 @@ $("#search-button").on("click", function (event) {
   forecast();
 
   //create function to save city to local storage
-  function saveToStorage(newCity){
-    console.log("saving to storage")
-    //create a var called citiesArr
-    var citiesArr = JSON.parse(localStorage.getItem("cities-searched"))
-    console.log(citiesArr)
-    console.log(newCity)
-    if(citiesArr.includes(newCity)){ //this checks if city has already been searched for. If it hasn't it will be added to array
-        return;
-    }
-    citiesArr.push(newCity)
-    localStorage.setItem("cities-searched", JSON.stringify(citiesArr))//saves as a string
-}
+//   function saveToStorage(newCity){
+//     console.log("saving to storage")
+//     //create a var called citiesArr
+//     var citiesArr = JSON.parse(localStorage.getItem("cities-searched"))
+//     console.log(citiesArr)
+//     console.log(newCity)
+//     if(citiesArr.includes(newCity)){ //this checks if city has already been searched for. If it hasn't it will be added to array
+//         return;
+//     }
+//     citiesArr.push(newCity)
+//     localStorage.setItem("cities-searched", JSON.stringify(citiesArr))//saves as a string
+// }
 
-//on loading page, local storage is retrieved
-function loadStorage(){
-    console.log("Loading storage")
-    var citiesArr = JSON.parse(localStorage.getItem("cities-searched"))
-    console.log(citiesArr)
-    if(citiesArr === null){
-        localStorage.setItem("cities-searched", JSON.stringify([]))
-    }
-}
+// //on loading page, local storage is retrieved
+// function loadStorage(){
+//     console.log("Loading storage")
+//     var citiesArr = JSON.parse(localStorage.getItem("cities-searched"))
+//     console.log(citiesArr)
+//     if(citiesArr === null){
+//         localStorage.setItem("cities-searched", JSON.stringify([]))
+//     }
+// }
+function saveCities() {
+    var city = $("#search-input").val().trim();
+    localStorage.setItem("history", JSON.stringify(saveCities));
+    
+  }
   function currentWeather() {
     $.ajax({
       url:
@@ -56,7 +62,7 @@ function loadStorage(){
       console.log("The city is called: " + cityName);
       // Creating an element to have the rating displayed
       var pOne = $("<h1>").text(cityName);
-      saveToStorage(cityName)
+    //   saveToStorage(cityName)
       //Storing the date
       //   var date= moment(response.list[i].dt_txt.split(" ")[0]).format(
       //     "dddd"
