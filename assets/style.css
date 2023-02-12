@@ -1,0 +1,7 @@
+.col-lg-9 pb-3, #today {
+    border: black;
+    border-radius: 10%;
+}
+
+/* border around current weather*/
+/* border around each day of 5 day forecast

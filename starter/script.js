@@ -2,6 +2,7 @@
 $("#search-button").on("click", function (event) {
   event.preventDefault();
 
+
   // This line grabs the input from the textbox
   var city = $("#search-input").val().trim();
 
@@ -12,6 +13,29 @@ $("#search-button").on("click", function (event) {
   currentWeather();
   forecast();
 
+  //create function to save city to local storage
+  function saveToStorage(newCity){
+    console.log("saving to storage")
+    //create a var called citiesArr
+    var citiesArr = JSON.parse(localStorage.getItem("cities-searched"))
+    console.log(citiesArr)
+    console.log(newCity)
+    if(citiesArr.includes(newCity)){ //this checks if city has already been searched for. If it hasn't it will be added to array
+        return;
+    }
+    citiesArr.push(newCity)
+    localStorage.setItem("cities-searched", JSON.stringify(citiesArr))//saves as a string
+}
+
+//on loading page, local storage is retrieved
+function loadStorage(){
+    console.log("Loading storage")
+    var citiesArr = JSON.parse(localStorage.getItem("cities-searched"))
+    console.log(citiesArr)
+    if(citiesArr === null){
+        localStorage.setItem("cities-searched", JSON.stringify([]))
+    }
+}
   function currentWeather() {
     $.ajax({
       url:
@@ -28,10 +52,11 @@ $("#search-button").on("click", function (event) {
 
       // Storing the name of the city
       var cityName = response.name;
+      
       console.log("The city is called: " + cityName);
       // Creating an element to have the rating displayed
       var pOne = $("<h1>").text(cityName);
-
+      saveToStorage(cityName)
       //Storing the date
       //   var date= moment(response.list[i].dt_txt.split(" ")[0]).format(
       //     "dddd"
@@ -94,35 +119,37 @@ $("#search-button").on("click", function (event) {
           //create a div to hold the forecast in
           var forecastDiv = $("<div>");
 
-          //create cards to hold each day in
-          forecastDiv.addClass("col-lg-3 col-md-6 mb-2 forecast-card");
-
           //getthe date from each day in the forecast
           var date = response.list[i].dt_txt.split(" ")[0];
           console.log("Date: " + date);
           var pdate = $("<p>").text("Date: " + date);
 
-          // Storing the temp
+          // Retrieving and storing the temp
           var temp = response.list[i].main.temp;
           console.log("Temp: " + temp + "°C");
           var ptemp = $("<p>").text("Temp: " + temp + "°C");
 
+          //Retrieving and storing the humidity
           var humidity = response.list[i].main.humidity;
-          console.log("Humidty: " + humidity + "%")
+          console.log("Humidty: " + humidity + "%");
           var phumid = $("<p>").text("Humidity: " + humidity + "%");
 
+          //Retrieving and storing the wind
           var wind = response.list[i].wind.speed;
-          console.log("Wind Speed: " + wind + "mph")
+          console.log("Wind Speed: " + wind + "mph");
           var pwind = $("<p>").text("Wind Speed: " + wind + "mph");
 
+          //Adding data to forecastDiv
           forecastDiv.append(pdate).append(ptemp).append(phumid).append(pwind);
+
+          //Adding data to forecast
 
           $("#forecast").append(forecastDiv);
         }
       }
     });
+ 
   }
+//   $(document).on("click", ".search-button");
+//   loadStorage()
 });
-
-// // Adding a click event listener to all elements with a class of "search-button"
-//  $(document).on("click", ".btn search-button", currentWeather);
