@@ -1,7 +1,25 @@
-// This function handles events where a movie button is clicked
-$("#search-button").on("click", function (event) {
-  event.preventDefault();
-  saveCities();
+
+
+// SUBMIT BUTTON CLICK 
+
+$("#search-button").on("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+// END Submit Button Click
+
+$(".form-input weather-search").on("click", function (e) {
+    e.preventDefault()
+    
+})
+var chosenCity = $("#search-input").val();
+    localStorage.setItem("history", JSON.stringify(chosenCity));
+
+
+
+//   function getCities() {
+//     localStorage.getItem("history");  
+//   }
 
 
   // This line grabs the input from the textbox
@@ -14,34 +32,7 @@ $("#search-button").on("click", function (event) {
   currentWeather();
   forecast();
 
-  //create function to save city to local storage
-//   function saveToStorage(newCity){
-//     console.log("saving to storage")
-//     //create a var called citiesArr
-//     var citiesArr = JSON.parse(localStorage.getItem("cities-searched"))
-//     console.log(citiesArr)
-//     console.log(newCity)
-//     if(citiesArr.includes(newCity)){ //this checks if city has already been searched for. If it hasn't it will be added to array
-//         return;
-//     }
-//     citiesArr.push(newCity)
-//     localStorage.setItem("cities-searched", JSON.stringify(citiesArr))//saves as a string
-// }
 
-// //on loading page, local storage is retrieved
-// function loadStorage(){
-//     console.log("Loading storage")
-//     var citiesArr = JSON.parse(localStorage.getItem("cities-searched"))
-//     console.log(citiesArr)
-//     if(citiesArr === null){
-//         localStorage.setItem("cities-searched", JSON.stringify([]))
-//     }
-// }
-function saveCities() {
-    var city = $("#search-input").val().trim();
-    localStorage.setItem("history", JSON.stringify(saveCities));
-    
-  }
   function currentWeather() {
     $.ajax({
       url:
@@ -61,7 +52,7 @@ function saveCities() {
       
       console.log("The city is called: " + cityName);
       // Creating an element to have the rating displayed
-      var pOne = $("<h1>").text(cityName);
+      var pOne = $("<h2>").text(cityName);
     //   saveToStorage(cityName)
       //Storing the date
       //   var date= moment(response.list[i].dt_txt.split(" ")[0]).format(
@@ -120,15 +111,16 @@ function saveCities() {
 
       //loop through the returned array
       for (var i = 0; i < weatherArray.length; i++) {
+        var forecastDiv = $("<div class='forecast'>");
         //grab the information each day at the time of 12:00:00
         if (weatherArray[i].dt_txt.split(" ")[1] === "12:00:00") {
           //create a div to hold the forecast in
-          var forecastDiv = $("<div>");
+          
 
           //getthe date from each day in the forecast
           var date = response.list[i].dt_txt.split(" ")[0];
           console.log("Date: " + date);
-          var pdate = $("<p>").text("Date: " + date);
+          var pdate = $("<p>").text(date);
 
           // Retrieving and storing the temp
           var temp = response.list[i].main.temp;
