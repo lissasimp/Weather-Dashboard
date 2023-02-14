@@ -1,26 +1,35 @@
+$(document).ready(function () {
+    
+});
 
 
-// SUBMIT BUTTON CLICK 
+var cityHistory = JSON.parse(localStorage.getItem("City")) || [];
+
+
+
+// Local Storage - Saves Destinations
+function saveDestinations() {
+  var city = $("#search-input").val().trim();
+  if (cityHistory.includes(city)) {
+    return;
+  }
+  cityHistory.push(city);
+  localStorage.setItem("City", JSON.stringify(cityHistory));
+}
+
+//Now I need to 
+// END Local Storage
+
+
+// SUBMIT BUTTON CLICK
 
 $("#search-button").on("click", function (e) {
-    e.preventDefault();
-    e.stopPropagation();
+  e.preventDefault();
+  e.stopPropagation();
+  currentWeather();
+  saveDestinations();
 
-// END Submit Button Click
-
-$(".form-input weather-search").on("click", function (e) {
-    e.preventDefault()
-    
-})
-var chosenCity = $("#search-input").val();
-    localStorage.setItem("history", JSON.stringify(chosenCity));
-
-
-
-//   function getCities() {
-//     localStorage.getItem("history");  
-//   }
-
+  // END Submit Button Click
 
   // This line grabs the input from the textbox
   var city = $("#search-input").val().trim();
@@ -32,7 +41,6 @@ var chosenCity = $("#search-input").val();
   currentWeather();
   forecast();
 
-
   function currentWeather() {
     $.ajax({
       url:
@@ -42,21 +50,27 @@ var chosenCity = $("#search-input").val();
         apiKey,
       method: "GET",
     }).then(function (response) {
+      if (city === !true) {   //this isn't working!
+        alert("Please try again")
+        return
+      } else {
+        $(".current").empty();
+        $(".forecast").empty();
+      }
       console.log(response);
       console.log(city);
-      // Creating a div to hold the movie
+
+      // Creating a div to hold the weather
       var currentDiv = $("<div class='current'>");
 
       // Storing the name of the city
       var cityName = response.name;
-      
+
       console.log("The city is called: " + cityName);
       // Creating an element to have the rating displayed
       var pOne = $("<h2>").text(cityName);
-    //   saveToStorage(cityName)
+      //   saveToStorage(cityName)
       //Storing the date
-      //   var date= moment(response.list[i].dt_txt.split(" ")[0]).format(
-      //     "dddd"
       var date = response.dt;
       var dateString = moment(date).format("DD/MM/YYYY"); //this is displaying 20/1/1970!
       console.log(dateString);
@@ -90,7 +104,9 @@ var chosenCity = $("#search-input").val();
     });
   }
 
+  
   function forecast() {
+    
     //Need to add in title to the section - at the moment it's not appending in the place I want it
     // var title = $("<h1>").text("5 Day Forecast");
     var forecast =
@@ -104,7 +120,7 @@ var chosenCity = $("#search-input").val();
       method: "GET",
     }).then(function (response) {
       console.log(response);
-      // $("#days").empty();
+      
 
       //create a variable to store response
       var weatherArray = response.list;
@@ -115,7 +131,6 @@ var chosenCity = $("#search-input").val();
         //grab the information each day at the time of 12:00:00
         if (weatherArray[i].dt_txt.split(" ")[1] === "12:00:00") {
           //create a div to hold the forecast in
-          
 
           //getthe date from each day in the forecast
           var date = response.list[i].dt_txt.split(" ")[0];
@@ -146,8 +161,7 @@ var chosenCity = $("#search-input").val();
         }
       }
     });
- 
   }
-//   $(document).on("click", ".search-button");
-//   loadStorage()
+  //   $(document).on("click", ".search-button");
+  //   loadStorage()
 });
