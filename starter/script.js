@@ -1,11 +1,6 @@
-$(document).ready(function () {
-    
-});
-
+$(document).ready(function () {});
 
 var cityHistory = JSON.parse(localStorage.getItem("City")) || [];
-
-
 
 // Local Storage - Saves Destinations
 function saveDestinations() {
@@ -17,9 +12,8 @@ function saveDestinations() {
   localStorage.setItem("City", JSON.stringify(cityHistory));
 }
 
-//Now I need to 
+//Now I need to save city data to dynamically generated buttons
 // END Local Storage
-
 
 // SUBMIT BUTTON CLICK
 
@@ -50,65 +44,75 @@ $("#search-button").on("click", function (e) {
         apiKey,
       method: "GET",
     }).then(function (response) {
-      if (city === !true) {   //this isn't working!
-        alert("Please try again")
-        return
+      if (city === !true) {
+        //not working
+        alert("Please try again");
+        return;
       } else {
-        $(".current").empty();
+        $(".current").empty(); //partially empties?
         $(".forecast").empty();
+        console.log(response);
+        console.log(city);
+
+        // Creating a div to hold the weather
+        var currentDiv = $("<div class='current'>");
+
+        // Storing the name of the city
+        var cityName = response.name;
+
+        console.log("The city is called: " + cityName);
+        // Creating an element to have the rating displayed
+
+        //   saveToStorage(cityName)
+        //Storing the date
+        var date = response.dt;
+        var dateString = moment.unix(date).format("DD/MM/YYYY");
+        var pOne = $("<h2>").text(cityName + "(" + dateString + ")");
+        console.log(dateString);
+        // console.log(date)
+
+        //Storing the image icon
+        var iconCode = response.weather[0].icon;
+        var iconURL = $("<img>").attr(
+          "src",
+          "https://openweathermap.org/img/wn/" + iconCode + ".png"
+        );
+        console.log(iconCode);
+        var image = iconURL;
+
+        // Storing the temp
+        var temp = response.main.temp;
+        console.log("Temp: " + temp);
+        var pTwo = $("<p>").text("Temp: " + temp + "°C");
+
+        // Storing the wind speed
+        var windSpeed = response.wind.speed;
+        console.log("Wind Speed: " + windSpeed);
+        var pFour = $("<p>").text("Wind Speed: " + windSpeed + "mph");
+
+        // Storing the humidity
+        var humidity = response.main.humidity;
+        console.log("Humidity: " + humidity);
+        var pThree = $("<p>").text("Humidty: " + humidity + "%");
+
+        currentDiv
+          .append(pOne)
+          .append(image)
+          .append(pTwo)
+          .append(pThree)
+          .append(pFour);
+
+        $("#today").append(currentDiv);
+        //   $('#today').attr('src', iconURL); doesn't work?
       }
-      console.log(response);
-      console.log(city);
-
-      // Creating a div to hold the weather
-      var currentDiv = $("<div class='current'>");
-
-      // Storing the name of the city
-      var cityName = response.name;
-
-      console.log("The city is called: " + cityName);
-      // Creating an element to have the rating displayed
-      var pOne = $("<h2>").text(cityName);
-      //   saveToStorage(cityName)
-      //Storing the date
-      var date = response.dt;
-      var dateString = moment(date).format("DD/MM/YYYY"); //this is displaying 20/1/1970!
-      console.log(dateString);
-      // console.log(date)
-
-      //Storing the image icon
-      var iconCode = response.weather[0].icon;
-      var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
-      console.log(iconCode);
-      var pTwo = $("<p>").text(iconCode); //doesn't change icon to image when displayed
-
-      // Storing the temp
-      var temp = response.main.temp;
-      console.log("Temp: " + temp);
-      var pTwo = $("<p>").text("Temp: " + temp + "°C");
-
-      // Storing the wind speed
-      var windSpeed = response.wind.speed;
-      console.log("Wind Speed: " + windSpeed);
-      var pFour = $("<p>").text("Wind Speed: " + windSpeed + "mph");
-
-      // Storing the humidity
-      var humidity = response.main.humidity;
-      console.log("Humidity: " + humidity);
-      var pThree = $("<p>").text("Humidty: " + humidity + "%");
-
-      currentDiv.append(pOne).append(pTwo).append(pThree).append(pFour);
-
-      $("#today").append(currentDiv);
-      //   $('#today').attr('src', iconURL); doesn't work?
     });
   }
 
-  
+  var title = $("<h2>").text("5 Day Forecast");
+
   function forecast() {
-    
     //Need to add in title to the section - at the moment it's not appending in the place I want it
-    // var title = $("<h1>").text("5 Day Forecast");
+
     var forecast =
       "https://api.openweathermap.org/data/2.5/forecast?q=" +
       city +
@@ -120,22 +124,30 @@ $("#search-button").on("click", function (e) {
       method: "GET",
     }).then(function (response) {
       console.log(response);
-      
 
       //create a variable to store response
       var weatherArray = response.list;
-
+      var container = $("<div class='container'>");
       //loop through the returned array
       for (var i = 0; i < weatherArray.length; i++) {
+        //create a div to hold the forecast in
         var forecastDiv = $("<div class='forecast'>");
         //grab the information each day at the time of 12:00:00
         if (weatherArray[i].dt_txt.split(" ")[1] === "12:00:00") {
-          //create a div to hold the forecast in
-
           //getthe date from each day in the forecast
-          var date = response.list[i].dt_txt.split(" ")[0];
+          var date = moment(response.list[i].dt_txt.split(" ")[0]).format(
+            "DD-MM-YYYY"
+          );
           console.log("Date: " + date);
           var pdate = $("<p>").text(date);
+
+          var iconCode = response.list[i].weather[0].icon;
+          var iconURL = $("<img>").attr(
+            "src",
+            "https://openweathermap.org/img/wn/" + iconCode + ".png"
+          );
+          console.log(iconCode);
+          var image = iconURL; 
 
           // Retrieving and storing the temp
           var temp = response.list[i].main.temp;
@@ -153,11 +165,13 @@ $("#search-button").on("click", function (e) {
           var pwind = $("<p>").text("Wind Speed: " + wind + "mph");
 
           //Adding data to forecastDiv
-          forecastDiv.append(pdate).append(ptemp).append(phumid).append(pwind);
+          forecastDiv.append(pdate).append(iconURL).append(ptemp).append(phumid).append(pwind);
 
           //Adding data to forecast
 
           $("#forecast").append(forecastDiv);
+          $("#forecast").append(container);
+          $("#forecast").append(title);
         }
       }
     });

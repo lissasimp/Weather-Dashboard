@@ -18,15 +18,23 @@
     display: block;
 }
 
+.container{
+    border: #03144e;
+    border: 2px solid;
+    background-color: #030e31 ;
+    color: #ffffff;
+    width: 18%;
+}
+
 #search-button {
     background-color: rgb(39, 167, 213);
     width: 190px;
-    margin: 5px;
     text-align: center;
     color: #ffffff;
     font-size: 15px;
-    padding: 5px;
+    margin-top: 5px;
     border-radius: 8px;
+    vertical-align: top;
 }
 
 
