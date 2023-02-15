@@ -11,31 +11,38 @@ function saveDestinations() {
   cityHistory.push(city);
   localStorage.setItem("City", JSON.stringify(cityHistory));
 }
+//End Local Storage
 
-//Now I need to save city data to dynamically generated buttons
-// END Local Storage
-
-// SUBMIT BUTTON CLICK
-
+//Search button function
 $("#search-button").on("click", function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-  currentWeather();
-  saveDestinations();
+    var city = $("#search-input").val().trim();
+    e.preventDefault();
+    e.stopPropagation();
+    currentWeather();
+    saveDestinations();
+    //create buttons with saved data
+   var searched = $("<button class = savedCity></button>");
+   searched.text(city)
+   $(searched).on("click", function() {
+    currentWeather()
+    forecast()
+   });
+   $("#hist-buttons").append(searched)
+   console.log(searched)
+   console.log(city)
 
-  // END Submit Button Click
 
-  // This line grabs the input from the textbox
-  var city = $("#search-input").val().trim();
-
+  
   var apiKey = "76dd56a7c869514402bbcfd7dbd7cbb7";
-
-  // Clear out the value in the input field
-  $("#search-input").val("");
+  $("#today").empty(); 
+  $("#forecast").empty();
   currentWeather();
   forecast();
-
+  
+//current weather call
   function currentWeather() {
+    // Clear out the value in the input field
+  $("#search-input").val("");
     $.ajax({
       url:
         "https://api.openweathermap.org/data/2.5/weather?q=" +

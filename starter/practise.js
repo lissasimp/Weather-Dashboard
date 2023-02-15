@@ -13,3 +13,28 @@
 //     $(".forecast").empty();
 
 //var date = moment(response.list[i].dt_txt.split(" ")[0]).format('DD-MM-YYYY');
+
+//  $("#search-button").on("click", function (e) {
+//     var city = $("#search-input").val().trim();
+//     e.preventDefault();
+//     e.stopPropagation();
+//     currentWeather();
+//     saveDestinations();
+//    var searched = $("<button class = savedCity></button>");
+//    searched.text(city)
+//    $(searched).on("click", function() {
+//     currentWeather()
+//     forecast()
+//    });
+//    $("#hist-buttons").append(searched)
+//    console.log(searched)
+//    console.log(city)
+
+  
+//   var apiKey = "76dd56a7c869514402bbcfd7dbd7cbb7";
+//   $("#today").empty(); //partially empties?
+//   $("#forecast").empty();
+//   currentWeather();
+//   forecast();
+//   // Clear out the value in the input field
+//   $("#search-input").val("");
