@@ -1,4 +1,13 @@
-$(document).ready(function () {});
+
+    $("#search-input").on("input change", function () {
+      if ($(this).val() != "") {
+        $("#search-button").prop("disabled", false);
+      } else {
+        $("#search-button").prop("disabled", true);
+      }
+    });
+
+
 
 var cityHistory = JSON.parse(localStorage.getItem("City")) || [];
 
@@ -10,39 +19,40 @@ function saveDestinations() {
   }
   cityHistory.push(city);
   localStorage.setItem("City", JSON.stringify(cityHistory));
+  // disableInput()
 }
 //End Local Storage
 
 //Search button function
 $("#search-button").on("click", function (e) {
-    var city = $("#search-input").val().trim();
-    e.preventDefault();
-    e.stopPropagation();
+  var city = $("#search-input").val().trim();
+  e.preventDefault();
+  e.stopPropagation();
+  currentWeather();
+  saveDestinations();
+  //create buttons with saved data
+  var searched = $("<button class = savedCity></button>");
+  searched.text(city);
+  $(searched).on("click", function () {
     currentWeather();
-    saveDestinations();
-    //create buttons with saved data
-   var searched = $("<button class = savedCity></button>");
-   searched.text(city)
-   $(searched).on("click", function() {
-    currentWeather()
-    forecast()
-   });
-   $("#hist-buttons").append(searched)
-   console.log(searched)
-   console.log(city)
+    forecast();
+  });
+  $("#hist-buttons").append(searched);
+  console.log(searched);
+  console.log(city);
 
-
-  
   var apiKey = "76dd56a7c869514402bbcfd7dbd7cbb7";
-  $("#today").empty(); 
+  $("#today").empty();
   $("#forecast").empty();
   currentWeather();
   forecast();
-  
-//current weather call
+
+  //current weather call
   function currentWeather() {
     // Clear out the value in the input field
-  $("#search-input").val("");
+    $("#search-input").val("");
+    
+
     $.ajax({
       url:
         "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -51,10 +61,9 @@ $("#search-button").on("click", function (e) {
         apiKey,
       method: "GET",
     }).then(function (response) {
-      if (city === !true) {
+      if (city === "") {
         //not working
         alert("Please try again");
-        return;
       } else {
         $(".current").empty(); //partially empties?
         $(".forecast").empty();
@@ -115,7 +124,7 @@ $("#search-button").on("click", function (e) {
     });
   }
 
-  var title = $("<h2>").text("5 Day Forecast");
+  
 
   function forecast() {
     //Need to add in title to the section - at the moment it's not appending in the place I want it
@@ -131,7 +140,8 @@ $("#search-button").on("click", function (e) {
       method: "GET",
     }).then(function (response) {
       console.log(response);
-
+      var title = $("<h3>").text("5 Day Forecast:");
+      
       //create a variable to store response
       var weatherArray = response.list;
       var container = $("<div class='container'>");
@@ -154,7 +164,7 @@ $("#search-button").on("click", function (e) {
             "https://openweathermap.org/img/wn/" + iconCode + ".png"
           );
           console.log(iconCode);
-          var image = iconURL; 
+          var image = iconURL;
 
           // Retrieving and storing the temp
           var temp = response.list[i].main.temp;
@@ -172,13 +182,19 @@ $("#search-button").on("click", function (e) {
           var pwind = $("<p>").text("Wind Speed: " + wind + "mph");
 
           //Adding data to forecastDiv
-          forecastDiv.append(pdate).append(iconURL).append(ptemp).append(phumid).append(pwind);
+          forecastDiv
+            .append(pdate)
+            .append(iconURL)
+            .append(ptemp)
+            .append(phumid)
+            .append(pwind);
 
           //Adding data to forecast
 
           $("#forecast").append(forecastDiv);
           $("#forecast").append(container);
           $("#forecast").append(title);
+          $("#forecast-title").append(title);
         }
       }
     });
