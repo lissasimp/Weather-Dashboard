@@ -1,13 +1,11 @@
-
-    $("#search-input").on("input change", function () {
-      if ($(this).val() != "") {
-        $("#search-button").prop("disabled", false);
-      } else {
-        $("#search-button").prop("disabled", true);
-      }
-    });
-
-
+//disables search button if input field empty
+$("#search-input").on("input change", function () {
+  if ($(this).val() != "") {
+    $("#search-button").prop("disabled", false);
+  } else {
+    $("#search-button").prop("disabled", true);
+  }
+});
 
 var cityHistory = JSON.parse(localStorage.getItem("City")) || [];
 
@@ -19,7 +17,6 @@ function saveDestinations() {
   }
   cityHistory.push(city);
   localStorage.setItem("City", JSON.stringify(cityHistory));
-  // disableInput()
 }
 //End Local Storage
 
@@ -38,8 +35,8 @@ $("#search-button").on("click", function (e) {
     forecast();
   });
   $("#hist-buttons").append(searched);
-  console.log(searched);
-  console.log(city);
+  // console.log(searched);
+  // console.log(city);
 
   var apiKey = "76dd56a7c869514402bbcfd7dbd7cbb7";
   $("#today").empty();
@@ -51,7 +48,6 @@ $("#search-button").on("click", function (e) {
   function currentWeather() {
     // Clear out the value in the input field
     $("#search-input").val("");
-    
 
     $.ajax({
       url:
@@ -67,8 +63,8 @@ $("#search-button").on("click", function (e) {
       } else {
         $(".current").empty(); //partially empties?
         $(".forecast").empty();
-        console.log(response);
-        console.log(city);
+        // console.log(response);
+        // console.log(city);
 
         // Creating a div to hold the weather
         var currentDiv = $("<div class='current'>");
@@ -76,15 +72,13 @@ $("#search-button").on("click", function (e) {
         // Storing the name of the city
         var cityName = response.name;
 
-        console.log("The city is called: " + cityName);
-        // Creating an element to have the rating displayed
+        // console.log("The city is called: " + cityName);
 
-        //   saveToStorage(cityName)
         //Storing the date
         var date = response.dt;
         var dateString = moment.unix(date).format("DD/MM/YYYY");
         var pOne = $("<h2>").text(cityName + "(" + dateString + ")");
-        console.log(dateString);
+        // console.log(dateString);
         // console.log(date)
 
         //Storing the image icon
@@ -93,22 +87,22 @@ $("#search-button").on("click", function (e) {
           "src",
           "https://openweathermap.org/img/wn/" + iconCode + ".png"
         );
-        console.log(iconCode);
+        // console.log(iconCode);
         var image = iconURL;
 
         // Storing the temp
         var temp = response.main.temp;
-        console.log("Temp: " + temp);
+        // console.log("Temp: " + temp);
         var pTwo = $("<p>").text("Temp: " + temp + "°C");
 
         // Storing the wind speed
         var windSpeed = response.wind.speed;
-        console.log("Wind Speed: " + windSpeed);
+        // console.log("Wind Speed: " + windSpeed);
         var pFour = $("<p>").text("Wind Speed: " + windSpeed + "mph");
 
         // Storing the humidity
         var humidity = response.main.humidity;
-        console.log("Humidity: " + humidity);
+        // console.log("Humidity: " + humidity);
         var pThree = $("<p>").text("Humidty: " + humidity + "%");
 
         currentDiv
@@ -119,16 +113,12 @@ $("#search-button").on("click", function (e) {
           .append(pFour);
 
         $("#today").append(currentDiv);
-        //   $('#today').attr('src', iconURL); doesn't work?
       }
     });
   }
 
-  
-
+  // 5 day forecast call
   function forecast() {
-    //Need to add in title to the section - at the moment it's not appending in the place I want it
-
     var forecast =
       "https://api.openweathermap.org/data/2.5/forecast?q=" +
       city +
@@ -139,9 +129,9 @@ $("#search-button").on("click", function (e) {
       url: forecast,
       method: "GET",
     }).then(function (response) {
-      console.log(response);
+      // console.log(response);
       var title = $("<h3>").text("5 Day Forecast:");
-      
+
       //create a variable to store response
       var weatherArray = response.list;
       var container = $("<div class='container'>");
@@ -151,11 +141,11 @@ $("#search-button").on("click", function (e) {
         var forecastDiv = $("<div class='forecast'>");
         //grab the information each day at the time of 12:00:00
         if (weatherArray[i].dt_txt.split(" ")[1] === "12:00:00") {
-          //getthe date from each day in the forecast
+          //get the date from each day in the forecast
           var date = moment(response.list[i].dt_txt.split(" ")[0]).format(
             "DD-MM-YYYY"
           );
-          console.log("Date: " + date);
+          // console.log("Date: " + date);
           var pdate = $("<p>").text(date);
 
           var iconCode = response.list[i].weather[0].icon;
@@ -163,22 +153,22 @@ $("#search-button").on("click", function (e) {
             "src",
             "https://openweathermap.org/img/wn/" + iconCode + ".png"
           );
-          console.log(iconCode);
+          // console.log(iconCode);
           var image = iconURL;
 
           // Retrieving and storing the temp
           var temp = response.list[i].main.temp;
-          console.log("Temp: " + temp + "°C");
+          // console.log("Temp: " + temp + "°C");
           var ptemp = $("<p>").text("Temp: " + temp + "°C");
 
           //Retrieving and storing the humidity
           var humidity = response.list[i].main.humidity;
-          console.log("Humidty: " + humidity + "%");
+          // console.log("Humidty: " + humidity + "%");
           var phumid = $("<p>").text("Humidity: " + humidity + "%");
 
           //Retrieving and storing the wind
           var wind = response.list[i].wind.speed;
-          console.log("Wind Speed: " + wind + "mph");
+          // console.log("Wind Speed: " + wind + "mph");
           var pwind = $("<p>").text("Wind Speed: " + wind + "mph");
 
           //Adding data to forecastDiv
@@ -199,6 +189,4 @@ $("#search-button").on("click", function (e) {
       }
     });
   }
-  //   $(document).on("click", ".search-button");
-  //   loadStorage()
 });

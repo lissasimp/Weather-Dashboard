@@ -15,18 +15,18 @@ Server APIs allow developers to access their data and functionality by making re
 - **WHEN** viewing weather dashboard
 - **THEN** the user is presented with form inputs
 - **WHEN** a user searches for a city
-- **THEN** they are presented with current and future conditions for that city and that city is added to the search history.
+- **THEN** they are presented with current and future conditions for that city; the city is added to local storage and a button is dynamically created.
 - **WHEN** a user views the current weather conditions for that city 
 - **THEN** they are presented with: the city name; the date; an icon representation of weather conditions; the temperature; the humidity; the wind speed
 - **WHEN** a user views future weather conditions for that city
 - **THEN** they are presented with a 5-day forecast that displays:the date; an icon representation of weather conditions; the temperature; the humidity; the wind speed
-- **WHEN**  a user clicks on a city in the search history
+- **WHEN**  a user clicks on dynamically created button
 - **THEN** they are again presented with current and future conditions for that city.
 
 
 ## Usage
 - Deployed Site: 
-![alt text](./)
+![Weather dashboard showing search input; current weather/5 day forecast](./assets/Screenshot.PNG)
 
 ## Credits
 The following websites were used to support this project:

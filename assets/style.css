@@ -20,8 +20,6 @@ h3  {
     background-color: #030e31 ;
     color: #ffffff;
     width: 18%;
-    /* display: grid;
-    justify-content: space-evenly; */
     margin: 1px;
     padding: 10px;
     margin-left: 20px;
@@ -48,6 +46,7 @@ h3  {
     margin-top: 5px;
     border-radius: 8px;
     vertical-align: top;
+    
 }
 
 #hist-buttons {
@@ -72,6 +71,7 @@ h3  {
     padding: 5px;
     
 }
+
 
 
 
