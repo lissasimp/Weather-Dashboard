@@ -25,7 +25,8 @@ Server APIs allow developers to access their data and functionality by making re
 
 
 ## Usage
-- Deployed Site: 
+- Deployed Site: https://lissasimp.github.io/Weather-Dashboard/
+
 ![Weather dashboard showing search input; current weather/5 day forecast](./assets/Screenshot.PNG)
 
 ## Credits
@@ -35,6 +36,7 @@ The following websites were used to support this project:
 - https://api.jquery.com/val/
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
 - https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
+- https://www.tutorialspoint.com/css/css_positioning.htm#:~:text=You%20can%20use%20two%20values,a%20negative%20value%20for%20top.
 
 
 ## License
