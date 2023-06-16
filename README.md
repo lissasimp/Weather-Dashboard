@@ -6,7 +6,6 @@
 - [Features](#features)
 - [User Story](#user-story)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Links](#links)
 - [Technology Used](#technology-used)
 - [Credits](#credits)
