@@ -1,33 +1,43 @@
-# Server-APIs-Weather-Dashboard
+# Weather Dashboard
 
-Server APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Your Challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Table of Contents
+- [Features](#features)
+- [User Story](#user-story)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Links](#links)
+- [Technology Used](#technology-used)
+- [Credits](#credits)
+- [Permission](#permission)
+
+## Features
+### This application has the following features:
+- A user can make requests with specific parameters to a URL.
+- Weather data can be retrieved from Open Weather Map API and provides current conditions and a 5 day forecast (temperature, humidity and wind speed).
+- Previous searches are saved for easy accessibility.
+- Weather Dashboard runs in the browser and features dynamically updated HTML and CSS.
 
 ## User Story
+As a traveler, I want to see the weather outlook for multiple cities so that I can plan a trip accordingly.
 
-- **AS** a traveler
-- **I WANT** to see the weather outlook for multiple cities
-- **SO THAT** I can plan a trip accordingly
+## Installation
+- Open Git Bash
+- Change the current working directory to the location where you want the cloned directory.
+- Type git clone https://github.com/lissasimp/Weather-Dashboard.git
+- You will see App running on port 3000! in the console. You can then view the app on http://localhost:3000/.
 
-
-## Acceptance Criteria
-
-- **WHEN** viewing weather dashboard
-- **THEN** the user is presented with form inputs
-- **WHEN** a user searches for a city
-- **THEN** they are presented with current and future conditions for that city; the city is added to local storage and a button is dynamically created.
-- **WHEN** a user views the current weather conditions for that city 
-- **THEN** they are presented with: the city name; the date; an icon representation of weather conditions; the temperature; the humidity; the wind speed
-- **WHEN** a user views future weather conditions for that city
-- **THEN** they are presented with a 5-day forecast that displays:the date; an icon representation of weather conditions; the temperature; the humidity; the wind speed
-- **WHEN**  a user clicks on dynamically created button
-- **THEN** they are again presented with current and future conditions for that city.
-
-
-## Usage
+## Links
 - Deployed Site: https://lissasimp.github.io/Weather-Dashboard/
 
 ![Weather dashboard showing search input; current weather/5 day forecast](./assets/Screenshot.PNG)
+
+## Technology Used
+- Javascript
+- HTML
+- CSS
+- Server API - https://openweathermap.org/
 
 ## Credits
 The following websites were used to support this project:
@@ -38,10 +48,7 @@ The following websites were used to support this project:
 - https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
 - https://www.tutorialspoint.com/css/css_positioning.htm#:~:text=You%20can%20use%20two%20values,a%20negative%20value%20for%20top.
 
+## Permission
+I'm happy for you to use the code or parts of the code for your own site, it is open source so people can learn from it and adapt it. However, I would encourage you to modify the theme and components to make it your own. If you are using the site's design largely unmodified, I'd appreciate being credited as the designer of the website.
 
-## License
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-
+I do not give permission to present any of my projects as your own.
