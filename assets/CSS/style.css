@@ -1,0 +1,37 @@
+.current {
+    border: #03144e;
+    border: 2px solid;
+    padding: 10px;
+}
+
+ .forecast{
+    border: #03144e;
+    border: 2px solid;
+    background-color: #030e31 ;
+    color: #ffffff;
+    width: 18%;
+    display: grid;
+    justify-content: space-evenly;
+    margin: 5px;
+    padding: 10px;
+}
+
+#search-button {
+    background-color: rgb(39, 167, 213);
+    width: 190px;
+    margin: 5px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+
+
+
+
+
+/* border around current weather*/
+/* border around each day of 5 day forecast
+  
