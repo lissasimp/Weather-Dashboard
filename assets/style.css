@@ -1,7 +1,41 @@
-/* 
+.current {
+    border: #03144e;
+    border: 2px solid;
+    padding: 10px;
+    right: 300%;
+    width: 100%;
+    position:relative; 
+    left:350px; 
+    top:-150px;
+}
+h3  {
+    position:relative; 
+    left:370px; 
+    top:-400px;
+}
 
+ .forecast{
+    border: #03144e;
+    border: 2px solid;
+    background-color: #030e31 ;
+    color: #ffffff;
+    width: 18%;
+    margin: 1px;
+    padding: 10px;
+    margin-left: 20px;
+    position:relative; 
+    left:350px; 
+    top:-100px;
+    vertical-align: top;
+}
 
-
+.container{
+    border: #03144e;
+    border: 2px solid;
+    background-color: #030e31 ;
+    color: #ffffff;
+    width: 18%;
+}
 
 #search-button {
     background-color: rgb(39, 167, 213);
@@ -36,7 +70,7 @@
     border-style: none;
     padding: 5px;
     
-} */
+}
 
 
 
