@@ -1,43 +1,39 @@
 .current {
-    border: #03144e;
-    border: 2px solid;
+    border: 2px solid #03144e;
     padding: 10px;
-    right: 300%;
-    width: 100%;
-    position:relative; 
-    left:350px; 
-    top:-150px;
-}
-h3  {
-    position:relative; 
-    left:370px; 
-    top:-400px;
-}
-
- .forecast{
-    border: #03144e;
-    border: 2px solid;
-    background-color: #030e31 ;
+    position: relative;
+    left: 350px;
+    top: -150px;
+  }
+  
+  h3 {
+    position: relative;
+    left: 370px;
+    top: -400px;
+  }
+  
+  .forecast {
+    border: 2px solid #03144e;
+    background-color: #030e31;
     color: #ffffff;
-    width: 18%;
+    width: calc((100% - 40px) / 3); /* Adjust the width calculation as needed */
     margin: 1px;
     padding: 10px;
     margin-left: 20px;
-    position:relative; 
-    left:350px; 
-    top:-100px;
+    position: relative;
+    left: 350px;
+    top: -100px;
     vertical-align: top;
-}
-
-.container{
-    border: #03144e;
-    border: 2px solid;
-    background-color: #030e31 ;
-    color: #ffffff;
-    width: 18%;
-}
-
-#search-button {
+  }
+  
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px; /* Add margin to create space below the forecast */
+  }
+  
+  #search-button {
     background-color: rgb(39, 167, 213);
     width: 190px;
     text-align: center;
@@ -46,19 +42,17 @@ h3  {
     margin-top: 5px;
     border-radius: 8px;
     vertical-align: top;
-    
-}
-
-#hist-buttons {
+  }
+  
+  #hist-buttons {
     display: grid;
     flex-direction: column;
-    position:relative; 
-    left:-335px; 
-    top:125px;
-    
-}
-
-.savedCity {
+    position: relative;
+    left: -335px;
+    top: 125px;
+  }
+  
+  .savedCity {
     display: inline-block;
     background-color: #757b7d;
     width: 190px;
@@ -69,12 +63,12 @@ h3  {
     border-radius: 8px;
     border-style: none;
     padding: 5px;
-    
-}
-
-
-
-
-
-
-
+  }
+  
+  @media (min-width: 768px) {
+    /* Adjust the layout for larger screens */
+    .forecast {
+      width: calc((100% - 60px) / 5); /* Adjust the width calculation as needed */
+    }
+  }
+  
