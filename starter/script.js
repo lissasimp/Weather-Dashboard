@@ -26,21 +26,38 @@ function saveDestinations() {
 // Display Saved Cities
 function displaySavedCities() {
   $("#history").empty();
-  cityHistory.forEach(function (city) {
-    var savedCity = $("<button class='savedCity'></button>");
-    savedCity.text(city);
-    savedCity.on("click", function () {
-      var city = $(this).text();
-      displayWeather(city);
+  if (cityHistory.length > 0) {
+    cityHistory.forEach(function (city) {
+      var savedCity = $("<button class='savedCity'></button>");
+      savedCity.text(city);
+      savedCity.on("click", function () {
+        var city = $(this).text();
+        displayWeather(city);
+      });
+      $("#history").append(savedCity);
     });
-    $("#history").append(savedCity);
-  });
+  }
 }
 
 // Display Weather Data
 function displayWeather(city) {
-  currentWeather(city);
-  forecast(city);
+  // Check if the city exists before making the API call
+  validateCity(city, function (isValid) {
+    if (isValid) {
+      currentWeather(city);
+      forecast(city);
+    } else {
+      alert("Invalid city. Please enter a valid city name.");
+      clearSearchBox(); // Clear the search box
+    }
+  });
+}
+
+// Clear the search box
+function clearSearchBox() {
+  $("#search-input").val(""); // Clear the value
+  $("#search-input").attr("placeholder", "City"); // Revert to default placeholder
+  $("#search-button").prop("disabled", true); // Disable the search button
 }
 
 // Search button function
@@ -49,10 +66,17 @@ $("#search-button").on("click", function (e) {
   if (city !== "") {
     e.preventDefault();
     e.stopPropagation();
-    saveDestinations();
-    displayWeather(city);
-    $("#search-input").val("");
-    displaySavedCities(); // Update saved cities display
+    validateCity(city, function (isValid) {
+      if (isValid) {
+        saveDestinations();
+        displayWeather(city);
+        clearSearchBox(); // Clear the search box
+        displaySavedCities(); // Update saved cities display
+      } else {
+        alert("Invalid city. Please enter a valid city name.");
+        clearSearchBox(); // Clear the search box
+      }
+    });
   }
 });
 
@@ -62,10 +86,17 @@ $("#search-input").on("keypress", function (e) {
     var city = $(this).val().trim();
     if (city !== "") {
       e.preventDefault();
-      saveDestinations();
-      displayWeather(city);
-      $(this).val("");
-      displaySavedCities(); // Update saved cities display
+      validateCity(city, function (isValid) {
+        if (isValid) {
+          saveDestinations();
+          displayWeather(city);
+          clearSearchBox(); // Clear the search box
+          displaySavedCities(); // Update saved cities display
+        } else {
+          alert("Invalid city. Please enter a valid city name.");
+          clearSearchBox(); // Clear the search box
+        }
+      });
     }
   }
 });
@@ -144,14 +175,31 @@ function forecast(city) {
   });
 }
 
+// Validate if a city exists
+function validateCity(city, callback) {
+  $.ajax({
+    url: "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey,
+    method: "GET",
+    success: function (response) {
+      if (response.cod === 200) {
+        callback(true);
+      } else {
+        callback(false);
+      }
+    },
+    error: function () {
+      callback(false);
+    },
+  });
+}
+
 // On page load, retrieve saved cities from local storage (if any) and display them
 $(document).ready(function () {
   cityHistory = JSON.parse(localStorage.getItem("City")) || [];
+  displaySavedCities();
 });
 
 // On page refresh, remove saved cities from local storage
 $(window).on("beforeunload", function () {
   localStorage.removeItem("City");
 });
-
-
