@@ -1,12 +1,8 @@
 .current {
-    border: #03144e;
-    border: 2px solid;
     padding: 10px;
 }
 
  .forecast{
-    border: #03144e;
-    border: 2px solid;
     background-color: #030e31 ;
     color: #ffffff;
     width: 18%;
@@ -17,18 +13,37 @@
 }
 
 #search-button {
-    background-color: rgb(39, 167, 213);
-    width: 190px;
-    margin: 5px;
-    text-align: center;
-    color: #ffffff;
-    font-size: 15px;
-    padding: 5px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 5px 10px;
     border-radius: 8px;
+    background-color: rgb(39, 167, 213);
+    color: #ffffff;
+    width: 190px;
+    cursor: pointer;
+
 }
 
-
-
+.savedCity {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding:  5px 10px;
+    border-radius: 8px;
+    border: none; 
+  outline: none; 
+    background-color: grey;
+    color: white;
+    width: 190px;
+    cursor: pointer;
+  }
+  
+  .savedCity:hover {
+    background-color: darkgrey;
+  }
+  
 
 
 
